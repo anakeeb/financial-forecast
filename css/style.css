@@ -22,3 +22,24 @@
 	border-width: 3px;
 	border-color: #88d498;
 }
+
+.about{
+	background: url(../img/FinancialForecastSquare.png);
+	background-position: center;
+	height: 600px;
+	padding: 140px 100px;
+	color: #000
+}
+
+.about h1{
+	font-size: 40px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.about hr{
+	width: 100px;
+	margin: auto;
+	border-width: 3px;
+	border-color: #88d498;
+}
