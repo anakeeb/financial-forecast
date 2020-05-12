@@ -3,9 +3,9 @@
 }
 
 .showcase{
-	background: url(../img/FinancialForecastSquare.png);
+	background: url(../img/Rain.gif);
 	background-position: center;
-	height: 600px;
+	height: 550px;
 	padding: 140px 100px;
 	color: #000
 }
