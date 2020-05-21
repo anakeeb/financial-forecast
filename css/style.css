@@ -5,7 +5,7 @@
 .showcase{
 	background: url(../img/Rain.gif);
 	background-position: center;
-	height: 550px;
+	height: 600px;
 	padding: 140px 100px;
 	color: #000
 }
@@ -24,7 +24,7 @@
 }
 
 .about{
-	background: url(../img/FinancialForecastSquare.png);
+	background: url(../img/AboutUs.gif);
 	background-position: center;
 	height: 600px;
 	padding: 140px 100px;
