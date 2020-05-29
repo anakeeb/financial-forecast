@@ -58,8 +58,9 @@ class App extends React.Component {
 			}
 		})
 
-	
 	}
+
+	
 
 	render() {
 		const stockPanels = this.state.panels.map(panel => <StockPanel key={ panel.id } panel={ panel } onClick={ this.handleClick }/>)
