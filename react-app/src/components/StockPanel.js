@@ -1,4 +1,7 @@
 import React from 'react'
+import CanvasJSReact from '../canvasjs.react'
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class StockPanel extends React.Component {
 	constructor() {
@@ -7,11 +10,34 @@ class StockPanel extends React.Component {
 			timeSeries: null
 		}
 		this.arrOfHighestPrice = this.arrOfHighestPrice.bind(this)
+		this.arrOfLowestPrice = this.arrOfLowestPrice.bind(this)
+		this.arrOfDates = this.arrOfDates.bind(this)
 	}
 
-
+	arrOfDates() {
+		if (this.state.timeSeries === null) {
+			console.log('returning')
+			return null
+		}
+		var keys = Object.keys(this.state.timeSeries)
+		console.log(keys)
+		return keys
+	}
 	
 	arrOfHighestPrice() {
+		if (this.state.timeSeries === null) {
+			console.log('returning')
+			return null
+		}
+		var keys = Object.keys(this.state.timeSeries)
+		var lows = new Array(keys.length)
+		for (let i = 0; i < keys.length; i++) {
+			lows[i] = parseInt(this.state.timeSeries[`${ keys[i] }`]['3. low'], 10)
+		}
+		return lows
+	}
+
+	arrOfLowestPrice() {
 		if (this.state.timeSeries === null) {
 			console.log('returning')
 			return null
@@ -40,14 +66,96 @@ class StockPanel extends React.Component {
 		
 
 		let highest = this.arrOfHighestPrice()
-		console.log(highest)
+		let lowest = this.arrOfLowestPrice()
+		let keys = this.arrOfDates()
+
+		let options = null
+		if (highest) {
+			CanvasJS.addColorSet("greenShades",
+                [
+	                "#88D498",
+	                "#008080",
+	                "#2E8B57",
+	                "#3CB371",
+	                "#90EE90"            
+                ])
+			options = {
+				colorSet: 'greenShades',
+				width: 300,
+				height: 150,
+				theme: 'dark2',
+				animationEnabled: true,
+				title: {
+					text: 'Recent Highs and Lows'
+				},
+				axisX: {
+					valueFormatString: 'MMM D',
+
+				},
+				axisY: {
+					includeZero: false,
+					prefix: "$"
+				},
+				data: [
+					{
+						type: 'rangeArea',
+						dataPoints: [
+
+							{
+								x: new Date(Date.now() - 63 * 24 * 60 * 60 * 1000),
+								y: [highest[9], lowest[9]]
+							},
+							{
+								x: new Date(Date.now() - 56 * 24 * 60 * 60 * 1000),
+								y: [highest[8], lowest[8]]
+							},
+							{
+								x: new Date(Date.now() - 49 * 24 * 60 * 60 * 1000),
+								y: [highest[7], lowest[7]]
+							},
+							{
+								x: new Date(Date.now() - 42 * 24 * 60 * 60 * 1000),
+								y: [highest[6], lowest[6]]
+							},
+							{
+								x: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000),
+								y: [highest[5], lowest[5]]
+							},
+							{
+								x: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000),
+								y: [highest[4], lowest[4]]
+							},
+							{
+								x: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+								y: [highest[3], lowest[3]]
+							},
+							{
+								x: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+								y: [highest[2], lowest[2]]
+							},
+							{
+								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+								y: [highest[1], lowest[1]]
+							},
+							{
+								x: new Date(Date.now()),
+								y: [highest[0], lowest[0]]
+							}
+
+						]
+					}
+				]
+			}
+		}
 
 		return(
+
 			<div>
 				<h1> <hr/> { this.props.panel.name }</h1>
 				<h1> { highest ? highest[0] : 'loading' }</h1>
 				<h1>{ this.props.panel.clicked ? 'clicked' : 'not clicked' }</h1>
 				<button onClick={ () => this.props.onClick(this.props.panel.id) }>stock</button>
+				{ this.props.panel.clicked ? <CanvasJSChart options={ options } /> : <h1></h1> }
 			</div>
 		)
 	}
