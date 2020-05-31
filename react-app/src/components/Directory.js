@@ -15,8 +15,8 @@ class Directory extends React.Component {
 		return(
 
 			<div>
-				<button>home</button>
-				<button>about</button>
+				<button onClick={ this.props.handleHomeClick }>home</button>
+				<button onClick={ this.props.handleAboutClick }>about</button>
 			</div>
 		)
 	}

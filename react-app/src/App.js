@@ -36,13 +36,16 @@ class App extends React.Component {
 				}
 			],
 			pages: {
-				landing: false,
-				aboutUs: true
+				landing: true,
+				aboutUs: false
 			}
 
 
 		}
 		this.handleClick = this.handleClick.bind(this)
+		this.handleHomeClick = this.handleHomeClick.bind(this)
+		this.handleAboutClick = this.handleAboutClick.bind(this)
+
 	}
 
 	handleClick(id) {
@@ -55,18 +58,35 @@ class App extends React.Component {
 				return panel
 			})
 			return {
-				panels: updatedPanels
+				panels: updatedPanels,
+				pages: prevState.pages
 			}
 		})
 
 	}
 
 	handleHomeClick() {
-
+		this.setState(prevState => {
+			return {
+				panels: prevState.panels,
+				pages: {
+					landing: true,
+					aboutUs: false
+				}
+			}
+		})
 	}
 
 	handleAboutClick() {
-		
+		this.setState(prevState => {
+			return {
+				panels: prevState.panels,
+				pages: {
+					landing: false,
+					aboutUs: true
+				}
+			}
+		})
 	}
 
 
@@ -76,7 +96,7 @@ class App extends React.Component {
 		if (this.state.pages.landing) {
 			return (
 				<div>
-					<Directory />
+					<Directory handleHomeClick={ this.handleHomeClick } handleAboutClick={ this.handleAboutClick } />
 					<section className="showcase">
 				    	<div className="w3-container w3-center">
 					        <br/>
@@ -100,18 +120,8 @@ class App extends React.Component {
 		if (this.state.pages.aboutUs) {
 			return (
 				<div>
-					<Directory />
+					<Directory handleHomeClick={ this.handleHomeClick } handleAboutClick={ this.handleAboutClick }/>
 					<section className="about">
-				    	<div className="w3-container w3-center">
-					        <br/>
-					        <br/>
-					        <br/>
-					        <hr/>
-					        <p className="w3-animate-opacity">
-					            An app that allows users to pick and choose what features we use to forecast stock over the next 10-30 days. This will allow users to get an experience with machine learning even though they are not actually writing any of the code. 
-					        </p>
-				        	<button class="w3-button w3-green w3-large w3-opacity">Start here</button>
-				        </div>
 				    </section>
 				    
 				</div>
