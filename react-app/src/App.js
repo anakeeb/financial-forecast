@@ -1,5 +1,7 @@
 import React from 'react';
 import StockPanel from './components/StockPanel'
+import Directory from './components/Directory'
+import './css/style.css'
 
 
 class App extends React.Component {
@@ -31,14 +33,13 @@ class App extends React.Component {
 					id: 5,
 					name: 'AAPL',
 					clicked: false
-				},
-				// {
-				// 	id: 6,
-				// 	name: 'TSLA',
-				// 	clicked: false
-				// }
-				
-			]
+				}
+			],
+			pages: {
+				landing: false,
+				aboutUs: true
+			}
+
 
 		}
 		this.handleClick = this.handleClick.bind(this)
@@ -60,16 +61,66 @@ class App extends React.Component {
 
 	}
 
-	
+	handleHomeClick() {
+
+	}
+
+	handleAboutClick() {
+		
+	}
+
+
 
 	render() {
 		const stockPanels = this.state.panels.map(panel => <StockPanel key={ panel.id } panel={ panel } onClick={ this.handleClick }/>)
-		return (
-		  <div>
-		    { stockPanels }
-		  </div>
-		)
+		if (this.state.pages.landing) {
+			return (
+				<div>
+					<Directory />
+					<section className="showcase">
+				    	<div className="w3-container w3-center">
+					        <br/>
+					        <br/>
+					        <br/>
+					        <hr/>
+					        <p className="w3-animate-opacity">
+					            An app that allows users to pick and choose what features we use to forecast stock over the next 10-30 days. This will allow users to get an experience with machine learning even though they are not actually writing any of the code. 
+					        </p>
+				        	<button class="w3-button w3-green w3-large w3-opacity">Start here</button>
+				        </div>
+				    </section>
+				    <div>
+				        { stockPanels }
+				    </div>
+				</div>
+				
+			)
+		}
+
+		if (this.state.pages.aboutUs) {
+			return (
+				<div>
+					<Directory />
+					<section className="about">
+				    	<div className="w3-container w3-center">
+					        <br/>
+					        <br/>
+					        <br/>
+					        <hr/>
+					        <p className="w3-animate-opacity">
+					            An app that allows users to pick and choose what features we use to forecast stock over the next 10-30 days. This will allow users to get an experience with machine learning even though they are not actually writing any of the code. 
+					        </p>
+				        	<button class="w3-button w3-green w3-large w3-opacity">Start here</button>
+				        </div>
+				    </section>
+				    
+				</div>
+				
+			)
+		}
+		
 	}
+
 
 }
 

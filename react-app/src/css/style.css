@@ -24,7 +24,7 @@
 }
 
 .about{
-	background: url(../img/AboutUs.gif);
+	/*background: url(../img/AboutUs.gif);*/
 	background-position: center;
 	height: 600px;
 	padding: 140px 100px;
