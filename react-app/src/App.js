@@ -4,6 +4,7 @@ import Directory from './components/Directory'
 import './css/style.css'
 
 
+
 class App extends React.Component {
 	constructor() {
 		super()
@@ -188,10 +189,11 @@ class App extends React.Component {
 	render() {
 		console.log(this.state)
 		const stockPanels = this.state.panels.map(panel => <StockPanel key={ panel.id } panel={ panel } onClick={ this.handleClick }/>)
+		let page
 		if (this.state.pages.landing) {
-			return (
+			page = (
 				<div>
-					<Directory handleHomeClick={ this.handleHomeClick } handleAboutClick={ this.handleAboutClick } />
+					
 					<section className="showcase">
 				    	<div className="w3-container w3-center">
 					        <br/>
@@ -208,22 +210,22 @@ class App extends React.Component {
 				        { stockPanels }
 				    </div>
 				</div>
-				
 			)
 		}
-
-		if (this.state.pages.aboutUs) {
-			return (
+		else if (this.state.pages.aboutUs) {
+			page = (
 				<div>
-					<Directory handleHomeClick={ this.handleHomeClick } handleAboutClick={ this.handleAboutClick }/>
 					<section className="about">
-				    </section>
-				    
+				    </section>    
 				</div>
-				
 			)
 		}
-		
+		return (
+			<div>
+				<Directory handleHomeClick={ this.handleHomeClick } handleAboutClick={ this.handleAboutClick } />
+				{ page }
+			</div>
+		)
 	}
 
 

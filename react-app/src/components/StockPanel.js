@@ -73,11 +73,8 @@ class StockPanel extends React.Component {
 				colorSet: 'greenShades',
 				width: 300,
 				height: 150,
-				theme: 'dark2',
+				theme: 'dark1',
 				animationEnabled: true,
-				title: {
-					text: 'Recent Highs and Lows'
-				},
 				axisX: {
 					valueFormatString: 'MMM D',
 
