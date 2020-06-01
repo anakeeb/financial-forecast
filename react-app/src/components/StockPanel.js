@@ -7,7 +7,7 @@ class StockPanel extends React.Component {
 	constructor() {
 		super()
 		this.state={
-			timeSeries: null
+
 		}
 		this.arrOfHighestPrice = this.arrOfHighestPrice.bind(this)
 		this.arrOfLowestPrice = this.arrOfLowestPrice.bind(this)
@@ -15,55 +15,45 @@ class StockPanel extends React.Component {
 	}
 
 	arrOfDates() {
-		if (this.state.timeSeries === null) {
+		if (this.props.panel.timeSeries === null) {
 			console.log('returning')
 			return null
 		}
-		var keys = Object.keys(this.state.timeSeries)
+		var keys = Object.keys(this.props.panel.timeSeries)
 		console.log(keys)
 		return keys
 	}
 	
 	arrOfHighestPrice() {
-		if (this.state.timeSeries === null) {
+		if (this.props.panel.timeSeries === null) {
 			console.log('returning')
 			return null
 		}
-		var keys = Object.keys(this.state.timeSeries)
+		var keys = Object.keys(this.props.panel.timeSeries)
 		var lows = new Array(keys.length)
 		for (let i = 0; i < keys.length; i++) {
-			lows[i] = parseInt(this.state.timeSeries[`${ keys[i] }`]['3. low'], 10)
+			lows[i] = parseInt(this.props.panel.timeSeries[`${ keys[i] }`]['3. low'], 10)
 		}
 		return lows
 	}
 
 	arrOfLowestPrice() {
-		if (this.state.timeSeries === null) {
+		if (this.props.panel.timeSeries === null) {
 			console.log('returning')
 			return null
 		}
-		var keys = Object.keys(this.state.timeSeries)
+		var keys = Object.keys(this.props.panel.timeSeries)
 		var highs = new Array(keys.length)
 		for (let i = 0; i < keys.length; i++) {
-			highs[i] = parseInt(this.state.timeSeries[`${ keys[i] }`]['2. high'], 10)
+			highs[i] = parseInt(this.props.panel.timeSeries[`${ keys[i] }`]['2. high'], 10)
 		}
 		return highs
 	}
 
-	componentDidMount() {
-        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.props.panel.name }&apikey=PUITOEHB47EXYOC4`)
-            .then(response => response.json())
-            .then(data => this.setState(prevState => {
-            	return {
-            		timeSeries: data['Weekly Time Series'],
-            	}
-            }))
-    }
-
 	render() {
+
 		console.log(this.props.panel.name)
-		console.log(this.state.timeSeries)
-		
+		console.log(this.props.panel.timeSeries)
 
 		let highest = this.arrOfHighestPrice()
 		let lowest = this.arrOfLowestPrice()

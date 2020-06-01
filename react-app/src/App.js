@@ -10,29 +10,34 @@ class App extends React.Component {
 		this.state={
 			panels: [
 				{
-					id: 1,
+					id: 0,
 					name: 'AMZN',
-					clicked: false
+					clicked: false,
+					timeSeries: null
+				},
+				{
+					id: 1,
+					name: 'GOOG',
+					clicked: false,
+					timeSeries: null
 				},
 				{
 					id: 2,
-					name: 'GOOG',
-					clicked: false
+					name: 'NFLX',
+					clicked: false,
+					timeSeries: null
 				},
 				{
 					id: 3,
-					name: 'NFLX',
-					clicked: false
+					name: 'MSFT',
+					clicked: false,
+					timeSeries: null
 				},
 				{
 					id: 4,
-					name: 'MSFT',
-					clicked: false
-				},
-				{
-					id: 5,
 					name: 'AAPL',
-					clicked: false
+					clicked: false,
+					timeSeries: null
 				}
 			],
 			pages: {
@@ -65,6 +70,7 @@ class App extends React.Component {
 
 	}
 
+
 	handleHomeClick() {
 		this.setState(prevState => {
 			return {
@@ -89,9 +95,98 @@ class App extends React.Component {
 		})
 	}
 
+	componentDidMount() {
+        //Making API calls
+        if(!this.state.panels[0].timeSeries) {
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[0].name }&apikey=PUITOEHB47EXYOC4`)
+	            .then(response => response.json())
+	            .then(data => this.setState(prevState => {
+	            	const updatedPanels = prevState.panels.map(panel => {
+	            		if (panel.id === 0) {
+	            			panel.timeSeries = data['Weekly Time Series']
+	            		}
+	            		return panel
+	            	})
+	            	return {
+	            		timeSeries: updatedPanels,
+	            		pages: prevState.pages
+	            	}
+	            })
+        	)
+        }
+        if(!this.state.panels[1].timeSeries) {
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[1].name }&apikey=PUITOEHB47EXYOC4`)
+	            .then(response => response.json())
+	            .then(data => this.setState(prevState => {
+	            	const updatedPanels = prevState.panels.map(panel => {
+	            		if (panel.id === 1) {
+	            			panel.timeSeries = data['Weekly Time Series']
+	            		}
+	            		return panel
+	            	})
+	            	return {
+	            		timeSeries: updatedPanels,
+	            		pages: prevState.pages
+	            	}
+	            })
+        	)
+        }
+        if(!this.state.panels[2].timeSeries) {
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[2].name }&apikey=PUITOEHB47EXYOC4`)
+	            .then(response => response.json())
+	            .then(data => this.setState(prevState => {
+	            	const updatedPanels = prevState.panels.map(panel => {
+	            		if (panel.id === 2) {
+	            			panel.timeSeries = data['Weekly Time Series']
+	            		}
+	            		return panel
+	            	})
+	            	return {
+	            		timeSeries: updatedPanels,
+	            		pages: prevState.pages
+	            	}
+	            })
+        	)
+        }
+        if(!this.state.panels[3].timeSeries) {
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[3].name }&apikey=PUITOEHB47EXYOC4`)
+	            .then(response => response.json())
+	            .then(data => this.setState(prevState => {
+	            	const updatedPanels = prevState.panels.map(panel => {
+	            		if (panel.id === 3) {
+	            			panel.timeSeries = data['Weekly Time Series']
+	            		}
+	            		return panel
+	            	})
+	            	return {
+	            		timeSeries: updatedPanels,
+	            		pages: prevState.pages
+	            	}
+	            })
+        	)
+        }
+        if(!this.state.panels[4].timeSeries) {
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[4].name }&apikey=PUITOEHB47EXYOC4`)
+	            .then(response => response.json())
+	            .then(data => this.setState(prevState => {
+	            	const updatedPanels = prevState.panels.map(panel => {
+	            		if (panel.id === 4) {
+	            			panel.timeSeries = data['Weekly Time Series']
+	            		}
+	            		return panel
+	            	})
+	            	return {
+	            		timeSeries: updatedPanels,
+	            		pages: prevState.pages
+	            	}
+	            })
+        	)
+        }
 
+    }
 
 	render() {
+		console.log(this.state)
 		const stockPanels = this.state.panels.map(panel => <StockPanel key={ panel.id } panel={ panel } onClick={ this.handleClick }/>)
 		if (this.state.pages.landing) {
 			return (
