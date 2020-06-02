@@ -21,11 +21,11 @@ class Directory extends React.Component {
 			    <Navbar bg="light" variant="light">
 				    <Navbar.Brand href="#home">
 				    	<img
-					        src="./logo.svg"
-					        width="30"
-					        height="30"
+					        src='react-app/src/img/logo.svg'
+					        width="5"
+					        height="5"
 					        className="d-inline-block align-top"
-					        alt="Financial Forecast logo"
+					        alt=""
 					    />
 				    </Navbar.Brand>
 				    <Nav className="mr-auto">
@@ -35,7 +35,7 @@ class Directory extends React.Component {
 				    </Nav>
 				    <Form inline>
 				        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-				        <Button variant="outline-info">Search</Button>
+				        <Button variant="outline-dark">Search</Button>
 				    </Form>
 				</Navbar>
 			</>
