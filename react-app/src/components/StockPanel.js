@@ -1,5 +1,9 @@
 import React from 'react'
+import Card from 'react-bootstrap/Card'
+import Fade from 'react-bootstrap/Fade'
 import CanvasJSReact from '../canvasjs.react'
+
+
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -7,7 +11,7 @@ class StockPanel extends React.Component {
 	constructor() {
 		super()
 		this.state={
-
+			hover: false
 		}
 		this.arrOfHighestPrice = this.arrOfHighestPrice.bind(this)
 		this.arrOfLowestPrice = this.arrOfLowestPrice.bind(this)
@@ -71,10 +75,7 @@ class StockPanel extends React.Component {
                 ])
 			options = {
 				colorSet: 'greenShades',
-				width: 300,
-				height: 150,
 				theme: 'dark1',
-				animationEnabled: true,
 				axisX: {
 					valueFormatString: 'MMM D',
 
@@ -135,15 +136,37 @@ class StockPanel extends React.Component {
 			}
 		}
 
+		const toFade = (
+			<Fade>
+				{ this.props.panel.hovered ? <CanvasJSChart options={ options } /> : <h1></h1> }
+			</Fade>
+		)
+
 		return(
 
-			<div>
-				<h1> <hr/> { this.props.panel.name }</h1>
-				<h1> { highest ? highest[0] : 'loading' }</h1>
-				<h1>{ this.props.panel.clicked ? 'clicked' : 'not clicked' }</h1>
-				<button onClick={ () => this.props.onClick(this.props.panel.id) }>stock</button>
-				{ this.props.panel.clicked ? <CanvasJSChart options={ options } /> : <h1></h1> }
-			</div>
+			
+			  <Card bg='light' text='dark' border='dark' onMouseEnter={ () => this.props.onHover(this.props.panel.id) } onMouseLeave={ () => this.props.onHover(this.props.panel.id) }>
+			    <Card.Body>
+			      <Card.Title> { this.props.panel.name } </Card.Title>
+			    </Card.Body>
+			    { toFade }
+			    
+			  </Card>
+			  
+
+
+
+
+			// <div>
+
+			// 	<h1> <hr/> { this.props.panel.name }</h1>
+			// 	<h1> { highest ? highest[0] : 'loading' }</h1>
+			// 	<h1>{ this.props.panel.clicked ? 'clicked' : 'not clicked' }</h1>
+			// 	<button onClick={ () => this.props.onClick(this.props.panel.id) }>stock</button>
+			// 	{ this.props.panel.clicked ? <CanvasJSChart options={ options } /> : <h1></h1> }
+
+
+			// </div>
 		)
 	}
 }

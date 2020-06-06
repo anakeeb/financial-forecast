@@ -1,6 +1,13 @@
 import React from 'react';
 import StockPanel from './components/StockPanel'
-import Directory from './components/Directory'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import Home from './pages/Home'
+import About from './pages/About'
+import Main from './pages/Main'
+import NoMatch from './pages/NoMatch'
+import NavigationBar from './components/NavigationBar'
+
 import './css/style.css'
 
 
@@ -13,87 +20,55 @@ class App extends React.Component {
 				{
 					id: 0,
 					name: 'AMZN',
-					clicked: false,
+					hovered: false,
 					timeSeries: null
 				},
 				{
 					id: 1,
 					name: 'GOOG',
-					clicked: false,
+					hovered: false,
 					timeSeries: null
 				},
 				{
 					id: 2,
 					name: 'NFLX',
-					clicked: false,
+					hovered: false,
 					timeSeries: null
 				},
 				{
 					id: 3,
 					name: 'MSFT',
-					clicked: false,
+					hovered: false,
 					timeSeries: null
 				},
 				{
 					id: 4,
 					name: 'AAPL',
-					clicked: false,
+					hovered: false,
 					timeSeries: null
 				}
-			],
-			pages: {
-				landing: true,
-				aboutUs: false
-			}
+			]
 
 
 		}
-		this.handleClick = this.handleClick.bind(this)
-		this.handleHomeClick = this.handleHomeClick.bind(this)
-		this.handleAboutClick = this.handleAboutClick.bind(this)
+		this.handleHover = this.handleHover.bind(this)
 
 	}
 
-	handleClick(id) {
+	handleHover(id) {
 		console.log(id)
 		this.setState(prevState => {
 			const updatedPanels = prevState.panels.map(panel => {
 				if (panel.id === id) {
-					panel.clicked = !(panel.clicked)
+					panel.hovered = !(panel.hovered)
 				}
 				return panel
 			})
 			return {
-				panels: updatedPanels,
-				pages: prevState.pages
+				panels: updatedPanels
 			}
 		})
 
-	}
-
-
-	handleHomeClick() {
-		this.setState(prevState => {
-			return {
-				panels: prevState.panels,
-				pages: {
-					landing: true,
-					aboutUs: false
-				}
-			}
-		})
-	}
-
-	handleAboutClick() {
-		this.setState(prevState => {
-			return {
-				panels: prevState.panels,
-				pages: {
-					landing: false,
-					aboutUs: true
-				}
-			}
-		})
 	}
 
 	componentDidMount() {
@@ -109,8 +84,7 @@ class App extends React.Component {
 	            		return panel
 	            	})
 	            	return {
-	            		timeSeries: updatedPanels,
-	            		pages: prevState.pages
+	            		timeSeries: updatedPanels
 	            	}
 	            })
         	)
@@ -126,8 +100,7 @@ class App extends React.Component {
 	            		return panel
 	            	})
 	            	return {
-	            		timeSeries: updatedPanels,
-	            		pages: prevState.pages
+	            		timeSeries: updatedPanels
 	            	}
 	            })
         	)
@@ -143,8 +116,7 @@ class App extends React.Component {
 	            		return panel
 	            	})
 	            	return {
-	            		timeSeries: updatedPanels,
-	            		pages: prevState.pages
+	            		timeSeries: updatedPanels
 	            	}
 	            })
         	)
@@ -160,8 +132,7 @@ class App extends React.Component {
 	            		return panel
 	            	})
 	            	return {
-	            		timeSeries: updatedPanels,
-	            		pages: prevState.pages
+	            		timeSeries: updatedPanels
 	            	}
 	            })
         	)
@@ -177,8 +148,7 @@ class App extends React.Component {
 	            		return panel
 	            	})
 	            	return {
-	            		timeSeries: updatedPanels,
-	            		pages: prevState.pages
+	            		timeSeries: updatedPanels
 	            	}
 	            })
         	)
@@ -188,43 +158,30 @@ class App extends React.Component {
 
 	render() {
 		console.log(this.state)
-		const stockPanels = this.state.panels.map(panel => <StockPanel key={ panel.id } panel={ panel } onClick={ this.handleClick }/>)
-		let page
-		if (this.state.pages.landing) {
-			page = (
-				<div>
-					
-					<section className="showcase">
-				    	<div className="w3-container w3-center">
-					        <br/>
-					        <br/>
-					        <br/>
-					        <hr/>
-					        <p className="w3-animate-opacity">
-					            An app that allows users to pick and choose what features we use to forecast stock over the next 10-30 days. This will allow users to get an experience with machine learning even though they are not actually writing any of the code. 
-					        </p>
-				        	<button class="w3-button w3-green w3-large w3-opacity">Start here</button>
-				        </div>
-				    </section>
-				    <div>
-				        { stockPanels }
-				    </div>
-				</div>
-			)
-		}
-		else if (this.state.pages.aboutUs) {
-			page = (
-				<div>
-					<section className="about">
-				    </section>    
-				</div>
-			)
-		}
+		const stockPanels = this.state.panels.map(panel => <StockPanel key={ panel.id } panel={ panel } onHover={ this.handleHover }/>)
 		return (
-			<div>
-				<Directory handleHomeClick={ this.handleHomeClick } handleAboutClick={ this.handleAboutClick } />
-				{ page }
-			</div>
+			<React.Fragment>
+		      <NavigationBar />
+		      <Layout>
+		        <Router>
+		          <Switch>
+		            <Route
+		            	exact path='/'
+		            	render={
+		            		(props) => {
+		            			return (
+		            				<Home {...props} stockPanels={ stockPanels } />
+		            			)
+		            		}
+		            	}
+		            />
+		            <Route path='/about' component={About} />
+		            <Route path='/main' component={Main} />
+		            <Route component={NoMatch} />
+		          </Switch>
+		        </Router>
+		      </Layout>
+		    </React.Fragment>
 		)
 	}
 
