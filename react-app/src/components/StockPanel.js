@@ -15,19 +15,8 @@ class StockPanel extends React.Component {
 		}
 		this.arrOfHighestPrice = this.arrOfHighestPrice.bind(this)
 		this.arrOfLowestPrice = this.arrOfLowestPrice.bind(this)
-		this.arrOfDates = this.arrOfDates.bind(this)
 	}
 
-	arrOfDates() {
-		if (this.props.panel.timeSeries === null) {
-			console.log('returning')
-			return null
-		}
-		var keys = Object.keys(this.props.panel.timeSeries)
-		console.log(keys)
-		return keys
-	}
-	
 	arrOfHighestPrice() {
 		if (this.props.panel.timeSeries === null) {
 			console.log('returning')
@@ -61,7 +50,6 @@ class StockPanel extends React.Component {
 
 		let highest = this.arrOfHighestPrice()
 		let lowest = this.arrOfLowestPrice()
-		let keys = this.arrOfDates()
 
 		let options = null
 		if (highest) {
@@ -75,7 +63,7 @@ class StockPanel extends React.Component {
                 ])
 			options = {
 				colorSet: 'greenShades',
-				theme: 'dark1',
+				theme: 'light1',
 				axisX: {
 					valueFormatString: 'MMM D',
 
@@ -136,10 +124,23 @@ class StockPanel extends React.Component {
 			}
 		}
 
-		const toFade = (
+		const graph = (
 			<Fade>
-				{ this.props.panel.hovered ? <CanvasJSChart options={ options } /> : <h1></h1> }
+				<CanvasJSChart options={ options } />
 			</Fade>
+		)
+
+		const text = (
+			<>
+				<Card.Title>
+					{ this.props.panel.name }
+				</Card.Title>
+				<Card.Text>
+			        Some quick example text to build on the card title and make up the bulk
+			        of the card's content.
+			    </Card.Text>
+		    </>
+
 		)
 
 		return(
@@ -147,9 +148,8 @@ class StockPanel extends React.Component {
 			
 			  <Card bg='light' text='dark' border='dark' onMouseEnter={ () => this.props.onHover(this.props.panel.id) } onMouseLeave={ () => this.props.onHover(this.props.panel.id) }>
 			    <Card.Body>
-			      <Card.Title> { this.props.panel.name } </Card.Title>
+			    	{this.props.panel.hovered ? graph : text }
 			    </Card.Body>
-			    { toFade }
 			    
 			  </Card>
 			  

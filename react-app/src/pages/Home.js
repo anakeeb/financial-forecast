@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import CardDeck from 'react-bootstrap/CardDeck'
+import { Layout } from '../components/Layout'
 
 
 const Styles = styled.div`
@@ -37,16 +38,13 @@ class Home extends React.Component {
 					    <br/>
 					    <br/>
 					    <hr/>
-					    <p className="w3-animate-opacity">
-					        An app that allows users to pick and choose what features we use to forecast stock over the next 10-30 days. This will allow users to get an experience with machine learning even though they are not actually writing any of the code. 
-					    </p>
 				    </div>
 				</section>
-				<br/>
-				<CardDeck>
-				    { this.props.stockPanels }
-				</CardDeck>
-
+				<Layout>
+					<CardDeck>
+				    	{ this.props.stockPanels }
+					</CardDeck>
+				</Layout>
 			</div>
 		)
 	}

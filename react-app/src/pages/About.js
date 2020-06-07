@@ -9,6 +9,11 @@ const Styles = styled.div`
 		padding: 140px 100px;
 		color: #000
 	}
+
+	.about p {
+		font-size: 40px;
+		font-weight: 700;
+	}
 `
 
 class About extends React.Component {
@@ -17,6 +22,7 @@ class About extends React.Component {
 			<div>		
 				<section className="about">
 				</section>
+				<p>Just two computer science students bored during quarantine.</p>
 			</div>
 		)
 	}

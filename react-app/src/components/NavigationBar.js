@@ -22,11 +22,9 @@ function NavigationBar() {
 			<Navbar bg='light' variant='light' expand='lg'>
 				<Navbar.Brand href='/'>
 					<img
-				        src="../src/img/logo.svg"
-				        width="30"
-				        height="30"
+				        src='../src/img/logo.svg'
 				        className="d-inline-block align-top"
-				        alt="React Bootstrap logo"
+				        alt="Financial Forecast"
 				    />
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />

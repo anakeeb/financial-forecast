@@ -31,18 +31,6 @@ class App extends React.Component {
 				},
 				{
 					id: 2,
-					name: 'NFLX',
-					hovered: false,
-					timeSeries: null
-				},
-				{
-					id: 3,
-					name: 'MSFT',
-					hovered: false,
-					timeSeries: null
-				},
-				{
-					id: 4,
 					name: 'AAPL',
 					hovered: false,
 					timeSeries: null
@@ -121,38 +109,7 @@ class App extends React.Component {
 	            })
         	)
         }
-        if(!this.state.panels[3].timeSeries) {
-        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[3].name }&apikey=PUITOEHB47EXYOC4`)
-	            .then(response => response.json())
-	            .then(data => this.setState(prevState => {
-	            	const updatedPanels = prevState.panels.map(panel => {
-	            		if (panel.id === 3) {
-	            			panel.timeSeries = data['Weekly Time Series']
-	            		}
-	            		return panel
-	            	})
-	            	return {
-	            		timeSeries: updatedPanels
-	            	}
-	            })
-        	)
-        }
-        if(!this.state.panels[4].timeSeries) {
-        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[4].name }&apikey=PUITOEHB47EXYOC4`)
-	            .then(response => response.json())
-	            .then(data => this.setState(prevState => {
-	            	const updatedPanels = prevState.panels.map(panel => {
-	            		if (panel.id === 4) {
-	            			panel.timeSeries = data['Weekly Time Series']
-	            		}
-	            		return panel
-	            	})
-	            	return {
-	            		timeSeries: updatedPanels
-	            	}
-	            })
-        	)
-        }
+        
 
     }
 
@@ -162,7 +119,6 @@ class App extends React.Component {
 		return (
 			<React.Fragment>
 		      <NavigationBar />
-		      <Layout>
 		        <Router>
 		          <Switch>
 		            <Route
@@ -180,7 +136,7 @@ class App extends React.Component {
 		            <Route component={NoMatch} />
 		          </Switch>
 		        </Router>
-		      </Layout>
+		      
 		    </React.Fragment>
 		)
 	}
