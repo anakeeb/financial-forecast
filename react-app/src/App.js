@@ -132,7 +132,16 @@ class App extends React.Component {
 		            	}
 		            />
 		            <Route path='/about' component={About} />
-		            <Route path='/main' component={Main} />
+		            <Route
+		            	path='/main'
+		            	render={
+		            		(props) => {
+		            			return (
+		            				<Main {...props} panelInfo={ this.state.panels } />
+		            			)
+		            		}
+		            	}
+		            />
 		            <Route component={NoMatch} />
 		          </Switch>
 		        </Router>
