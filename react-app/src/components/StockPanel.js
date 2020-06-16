@@ -43,6 +43,7 @@ class StockPanel extends React.Component {
 		return highs
 	}
 
+
 	render() {
 
 		console.log(this.props.panel.name)
@@ -152,21 +153,6 @@ class StockPanel extends React.Component {
 			    </Card.Body>
 			    
 			  </Card>
-			  
-
-
-
-
-			// <div>
-
-			// 	<h1> <hr/> { this.props.panel.name }</h1>
-			// 	<h1> { highest ? highest[0] : 'loading' }</h1>
-			// 	<h1>{ this.props.panel.clicked ? 'clicked' : 'not clicked' }</h1>
-			// 	<button onClick={ () => this.props.onClick(this.props.panel.id) }>stock</button>
-			// 	{ this.props.panel.clicked ? <CanvasJSChart options={ options } /> : <h1></h1> }
-
-
-			// </div>
 		)
 	}
 }

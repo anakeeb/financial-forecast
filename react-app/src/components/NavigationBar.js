@@ -8,12 +8,20 @@ const Styles = styled.div`
 		background-color: #FFF;
 	}
 
-	.navbar-brand, .navbar-nav, .nav-link {
+	.navbar-nav, .nav-link {
 		color: #DDD;
 
 		&:hover {
 			color: #AAA;
 		}
+	}
+	.navbar-brand {
+		color: #DDD;
+
+		&:hover {
+			color: #AAA;
+		}
+		background: url(../img/logo.svg)
 	}
 `
 function NavigationBar() {
@@ -22,7 +30,7 @@ function NavigationBar() {
 			<Navbar bg='light' variant='light' expand='lg'>
 				<Navbar.Brand href='/'>
 					<img
-				        src='../src/img/logo.svg'
+				        src='logo.svg'
 				        className="d-inline-block align-top"
 				        alt="Financial Forecast"
 				    />

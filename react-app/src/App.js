@@ -21,18 +21,21 @@ class App extends React.Component {
 					id: 0,
 					name: 'AMZN',
 					hovered: false,
+					selected: false,
 					timeSeries: null
 				},
 				{
 					id: 1,
 					name: 'GOOG',
 					hovered: false,
+					selected: false,
 					timeSeries: null
 				},
 				{
 					id: 2,
 					name: 'AAPL',
 					hovered: false,
+					selected: false,
 					timeSeries: null
 				}
 			]
@@ -40,6 +43,7 @@ class App extends React.Component {
 
 		}
 		this.handleHover = this.handleHover.bind(this)
+		this.handleSelect = this.handleSelect.bind(this)
 
 	}
 
@@ -49,6 +53,25 @@ class App extends React.Component {
 			const updatedPanels = prevState.panels.map(panel => {
 				if (panel.id === id) {
 					panel.hovered = !(panel.hovered)
+				}
+				return panel
+			})
+			return {
+				panels: updatedPanels
+			}
+		})
+
+	}
+
+	handleSelect(id) {
+		console.log(id)
+		this.setState(prevState => {
+			const updatedPanels = prevState.panels.map(panel => {
+				if (panel.id === id) {
+					panel.selected = true
+				}
+				else {
+					panel.selected = false
 				}
 				return panel
 			})
@@ -137,7 +160,7 @@ class App extends React.Component {
 		            	render={
 		            		(props) => {
 		            			return (
-		            				<Main {...props} panelInfo={ this.state.panels } />
+		            				<Main {...props} panels={ this.state.panels } onSelect={ this.handleSelect }/>
 		            			)
 		            		}
 		            	}

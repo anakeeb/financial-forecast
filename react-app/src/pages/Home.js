@@ -6,7 +6,7 @@ import { Layout } from '../components/Layout'
 
 const Styles = styled.div`
 	.showcase{
-		background: url(../img/Rain.gif) no-repeat center fixed;
+		background: url(../img/rain.gif) no-repeat center fixed;
 		background-position: center;
 		background-size: cover;
 		height: 600px;
