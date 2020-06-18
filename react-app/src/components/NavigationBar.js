@@ -27,7 +27,7 @@ const Styles = styled.div`
 function NavigationBar() {
 	return (
 		<Styles>
-			<Navbar bg='light' variant='light' expand='lg'>
+			<Navbar bg='light' variant='light' expand='lg' className='navbar'>
 				<Navbar.Brand href='/'>
 					<img
 				        src='logo.svg'

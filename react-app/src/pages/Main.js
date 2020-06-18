@@ -5,10 +5,16 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
 import Fade from 'react-bootstrap/Fade'
 import CanvasJSReact from '../canvasjs.react'
+import { Layout } from '../components/Layout'
+import styled from 'styled-components'
+
+
+
 
 
 var CanvasJS = CanvasJSReact.CanvasJS
@@ -22,11 +28,16 @@ class Main extends React.Component {
 			predicted: null,
 			finishedTraining: false,
 			epochIteration: 0,
-			epochs: 0
+			epochs: 100,
+			timePortion: 7
 		}
 		this.arrOfClosePrice = this.arrOfClosePrice.bind(this)
 		this.testModel = this.testModel.bind(this)
-		this.handleClick = this.handleClick.bind(this)
+		this.handleStartClick = this.handleStartClick.bind(this)
+		this.handleEpochPlusClick = this.handleEpochPlusClick.bind(this)
+		this.handleEpochMinusClick = this.handleEpochMinusClick.bind(this)
+		this.handleTimePlusClick = this.handleTimePlusClick.bind(this)
+		this.handleTimeMinusClick = this.handleTimeMinusClick.bind(this)
 	}
 
 	arrOfClosePrice() {
@@ -55,7 +66,7 @@ class Main extends React.Component {
 		return closes
 	}
 
-	handleClick() {
+	handleStartClick() {
 
 		let prices = this.arrOfClosePrice()
 		let thisVar = this
@@ -74,18 +85,75 @@ class Main extends React.Component {
 
 	}
 
+	handleEpochPlusClick() {
+		this.setState(prevState => {
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: prevState.finishedTraining,
+				epochIteration: prevState.epochIteration,
+				epochs: prevState.epochs + 1,
+				timePortion: prevState.timePortion
+			}
+		})
+	}
+
+	handleEpochMinusClick() {
+		this.setState(prevState => {
+			let epoch = prevState.epochs
+			if (epoch > 1) {
+				epoch -= 1
+			}
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: prevState.finishedTraining,
+				epochIteration: prevState.epochIteration,
+				epochs: epoch,
+				timePortion: prevState.timePortion
+			}
+		})
+	}
+
+	handleTimePlusClick() {
+		this.setState(prevState => {
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: prevState.finishedTraining,
+				epochIteration: prevState.epochIteration,
+				epochs: prevState.epochs,
+				timePortion: prevState.timePortion + 1
+			}
+		})
+	}
+
+	handleTimeMinusClick() {
+		this.setState(prevState => {
+			let time = prevState.timePortion
+			if (time > 1) {
+				time -= 1
+			}
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: prevState.finishedTraining,
+				epochIteration: prevState.epochIteration,
+				epochs: prevState.epochs,
+				timePortion: time
+			}
+		})
+	}
+
 	//start of ml functions
 
-	testModel(prices, timePortion, epochs) {
+	testModel(prices) {
 		console.log(prices)
-		console.log(timePortion)
-		console.log(epochs)
+		let epochs = this.state.epochs
+		let timePortion = this.state.timePortion
 		this.setState(prevState => {
 			return {
 				predicted: null,
 				finishedTraining: false,
 				epochIteration: 0,
-				epochs: epochs
+				epochs: epochs,
+				timePortion: timePortion
 			}
 		})
 		let thisVar = this
@@ -186,7 +254,7 @@ class Main extends React.Component {
 
 				        // Define input layer
 				        model.add(tf.layers.inputLayer({
-				            inputShape: [7, 1],
+				            inputShape: [timePortion, 1],
 				        }))
 
 				        // Add the first convolutional layer
@@ -247,7 +315,6 @@ class Main extends React.Component {
 
 				    const epochFunc = function () {
 				    	thisVar.setState(prevState => {
-				    		console.log(prevState.epochIteration)
 				    		return {
 				    			predicted: prevState.predicted,
 				    			finishedTraining: prevState.finishedTraining,
@@ -351,6 +418,30 @@ class Main extends React.Component {
 
 	render() {
 		console.log('render')
+		const Styles = styled.div`
+			.startButton {
+				background-color: #88D498;
+				color: #DDD;
+				cursor: pointer;
+				&:hover {
+					text-shadow: #B7E5C1;
+
+				}
+			}
+
+			.epoch-text {
+				color: #DDD;
+			}
+
+			.dropdown-button {
+				background-color = #000
+			}
+
+			.navbar-secondary {
+				background-color: #222;
+			}
+		`
+
 		let btnName = ''
 		let selectedId = -1
 		if (this.props.panels[0].selected === true) {
@@ -370,19 +461,52 @@ class Main extends React.Component {
 		}
 
 		let startButton
+		let epochButton
+		let timeButton
 		if (btnName !== 'Stock') {
 			startButton = (
-				<Col>
-					<button onClick={ this.handleClick }>start</button>
-				</Col>
+				<Styles>
+					<Col>
+						<Button className='startButton' onClick={ this.handleStartClick }>start</Button>
+					</Col>
+				</Styles>
+			)
+
+			epochButton = (
+				<Styles>
+					<Col className='epoch-text'>
+						<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
+						{ this.state.epochs } Epochs
+						<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>	
+					</Col>
+				</Styles>
+			)
+
+			timeButton = (
+				<Styles>
+					<Col className='epoch-text'>
+						<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
+						{ this.state.timePortion } Weeks back
+						<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>	
+					</Col>
+				</Styles>
 			)
 		}
+
 
 		let options
 		let graph
 
 		if((selectedId > -1) && (this.state.finishedTraining)) {
 			let closes = this.arrOfClosePrice()
+			CanvasJS.addColorSet("greenShades",
+                [
+	                "#88D498",
+	                "9ED488",
+	                "#2E8B57",
+	                "#3CB371",
+	                "#90EE90"            
+                ])
 			options = {
 				colorSet: 'greenShades',
 				theme: 'light1',
@@ -487,9 +611,9 @@ class Main extends React.Component {
 		let percentComplete = ((this.state.epochIteration / this.state.epochs) * 100)
 
 		return (
-			<div>
+			<Styles>
 				<Container fluid>
-					<Row>
+					<Row className='navbar-secondary'>
 						<Col>
 							<DropdownButton id="dropdown-basic-button" title={ btnName }>
 							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
@@ -497,14 +621,17 @@ class Main extends React.Component {
 							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
 							</DropdownButton>
 						</Col>
+						{ timeButton }
+						{ epochButton}
 						{ startButton }
-
 					</Row>
 				</Container>
-				<ProgressBar animated now={ percentComplete } label={ `${ percentComplete }%` }/>
-				{ graph }
-				
-			</div>
+				<Layout>
+					
+					<ProgressBar now={ percentComplete }/>
+					{ graph }
+				</Layout>
+			</Styles>
 		)
 	}
 }
