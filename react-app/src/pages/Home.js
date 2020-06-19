@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import CardDeck from 'react-bootstrap/CardDeck'
 import { Layout } from '../components/Layout'
 import Rain from '../img/Rain.gif'
-import LinkToHowItWorks from '../img/linkToHowItWorks.svg'
+import LinkToHowItWorks from '../img/linkToHowItWorks.png'
 
 
 class Home extends React.Component {
@@ -13,6 +13,7 @@ class Home extends React.Component {
 				background: url(${ Rain }) no-repeat center fixed;
 				background-position: center;
 				background-size: cover;
+				background-attachment: scroll;
 				height: 600px;
 				padding: 140px 100px;
 				color: #000
@@ -35,23 +36,19 @@ class Home extends React.Component {
 				background: url(${ LinkToHowItWorks }) no-repeat center fixed;
 				background-position: center;
 				background-size: cover;
+				background-attachment: scroll;
 				height: 700px;
+				width: 100%
 				padding: 140px 100px;
 				color: #000
 			}
 		`
 		return (
 			<Styles>		
-				<section className="showcase">
-				    <div>
-					    <br/>
-					    <br/>
-					    <br/>
-					    <hr/>
-				    </div>
-				</section>
-				<section className='link-to-how-it-works'>
-				</section>
+				<div className="showcase">
+				</div>
+				<div className='link-to-how-it-works'>
+				</div>
 				<Layout>
 					<CardDeck>
 				    	{ this.props.stockPanels }

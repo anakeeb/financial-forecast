@@ -2,7 +2,7 @@ import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import styled from 'styled-components'
-import Logo from '../img/logo.svg'
+import Logo from '../img/logo.png'
 
 const Styles = styled.div`
 	.navbar {
@@ -18,11 +18,11 @@ const Styles = styled.div`
 	}
 	.navbar-brand {
 		color: #DDD;
+		height: 70;
 
 		&:hover {
 			color: #AAA;
 		}
-		background: url(../img/logo.svg)
 	}
 `
 function NavigationBar() {
@@ -34,6 +34,8 @@ function NavigationBar() {
 				        src= { Logo }
 				        className="d-inline-block align-top"
 				        alt="Financial Forecast"
+				        height='60'
+
 				    />
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
