@@ -14,6 +14,14 @@ const Styles = styled.div`
 		font-size: 40px;
 		font-weight: 700;
 	}
+	.how-it-works {
+		background: url(../img/howItWorks.svg) no-repeat center fixed;
+		background-position: center;
+		background-size: cover;
+		padding: 140px 100px;
+		color: #000
+
+	}
 `
 
 class About extends React.Component {
@@ -22,7 +30,8 @@ class About extends React.Component {
 			<div>		
 				<section className="about">
 				</section>
-				<p>Just two computer science students bored during quarantine.</p>
+				<section className='how-it-works'>
+				</section>
 			</div>
 		)
 	}

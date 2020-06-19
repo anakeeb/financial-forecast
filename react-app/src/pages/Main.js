@@ -70,7 +70,8 @@ class Main extends React.Component {
 
 		let prices = this.arrOfClosePrice()
 		let thisVar = this
-		this.testModel(prices, 7, 100).then(function (result) {
+
+		this.testModel(prices).then(function (result) {
 			console.log(result)
 			console.log(thisVar.state)
 			thisVar.setState(prevState => {
