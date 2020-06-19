@@ -2,6 +2,7 @@ import React from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import styled from 'styled-components'
+import Logo from '../img/logo.svg'
 
 const Styles = styled.div`
 	.navbar {
@@ -30,7 +31,7 @@ function NavigationBar() {
 			<Navbar bg='light' variant='light' expand='lg' className='navbar'>
 				<Navbar.Brand href='/'>
 					<img
-				        src='logo.svg'
+				        src= { Logo }
 				        className="d-inline-block align-top"
 				        alt="Financial Forecast"
 				    />

@@ -1,4 +1,4 @@
-.branding{
+/*.branding{
 	font-size: 17px;	
 }
 
@@ -25,7 +25,7 @@
 }
 
 .about{
-	background: url(../img/AboutUs.gif);
+	background: url(../img/Rain.gif);
 	background-position: center;
 	background-size: cover;
 	height: 600px;
@@ -44,4 +44,4 @@
 	margin: auto;
 	border-width: 3px;
 	border-color: #88d498;
-}
+}*/

@@ -45,7 +45,6 @@ class StockPanel extends React.Component {
 
 
 	render() {
-
 		console.log(this.props.panel.name)
 		console.log(this.props.panel.timeSeries)
 
