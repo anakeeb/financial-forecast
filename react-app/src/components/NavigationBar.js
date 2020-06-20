@@ -18,7 +18,6 @@ const Styles = styled.div`
 	}
 	.navbar-brand {
 		color: #DDD;
-		height: 70;
 
 		&:hover {
 			color: #AAA;

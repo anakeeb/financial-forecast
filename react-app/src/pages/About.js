@@ -13,7 +13,7 @@ class About extends React.Component {
 				background-position: center;
 				background-size: cover;
 				background-attachment: scroll;
-				height: 700px;
+				height: 600px;
 				padding: 140px 100px;
 				color: #000
 			}
@@ -22,10 +22,10 @@ class About extends React.Component {
 				background-position: center;
 				background-size: cover;
 				background-attachment: scroll;
-				height: 700px
+				height: 700px;
+				width: 100%;
 				padding: 140px 100px;
 				color: #000
-
 			}
 		`
 		return (

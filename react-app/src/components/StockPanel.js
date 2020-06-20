@@ -2,6 +2,7 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Fade from 'react-bootstrap/Fade'
 import CanvasJSReact from '../canvasjs.react'
+import styled from 'styled-components'
 
 
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -48,9 +49,14 @@ class StockPanel extends React.Component {
 		console.log(this.props.panel.name)
 		console.log(this.props.panel.timeSeries)
 
-		let highest = this.arrOfHighestPrice()
-		let lowest = this.arrOfLowestPrice()
+		let highest = null
+		let lowest = null
 
+		if (this.props.panel.timeSeries) {
+			highest = this.arrOfHighestPrice()
+			lowest = this.arrOfLowestPrice()
+		}
+		
 		let options = null
 		if (highest) {
 			CanvasJS.addColorSet("greenShades",
@@ -135,23 +141,38 @@ class StockPanel extends React.Component {
 				<Card.Title>
 					{ this.props.panel.name }
 				</Card.Title>
-				<Card.Text>
-			        Some quick example text to build on the card title and make up the bulk
-			        of the card's content.
-			    </Card.Text>
+				
 		    </>
 
 		)
 
+
+		const Styles = styled.div`
+			.stock-card {
+				background: linear-gradient(to bottom, #88d498 20%, #6BCA7F 100%);
+				color: #FFF;
+				padding:16px 31px;
+				height: 200;
+				width: 100;
+				&:hover {
+					background: #FFF;
+					color: #000;
+					height: 200;
+					width: 100;
+				}
+			}
+		`
+
 		return(
 
-			
-			  <Card bg='light' text='dark' border='dark' onMouseEnter={ () => this.props.onHover(this.props.panel.id) } onMouseLeave={ () => this.props.onHover(this.props.panel.id) }>
-			    <Card.Body>
-			    	{this.props.panel.hovered ? graph : text }
-			    </Card.Body>
-			    
-			  </Card>
+			<Styles>
+				<Card className='stock-card' onMouseEnter={ () => this.props.onHover(this.props.panel.id) } onMouseLeave={ () => this.props.onHover(this.props.panel.id) }>
+			        <Card.Body>
+			    	    {this.props.panel.hovered ? graph : text }
+			        </Card.Body>
+			    </Card>
+			</Styles>
+		    
 		)
 	}
 }

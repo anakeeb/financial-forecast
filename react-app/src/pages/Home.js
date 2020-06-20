@@ -19,28 +19,19 @@ class Home extends React.Component {
 				color: #000
 			}
 
-			.showcase h1{
-				font-size: 40px;
-				font-weight: 700;
-				text-transform: uppercase;
-			}
-
-			.showcase hr{
-				width: 100px;
-				margin: auto;
-				border-width: 3px;
-				border-color: #88d498;
-			}
-
 			.link-to-how-it-works {
 				background: url(${ LinkToHowItWorks }) no-repeat center fixed;
 				background-position: center;
 				background-size: cover;
 				background-attachment: scroll;
 				height: 700px;
-				width: 100%
+				width: 100%;
 				padding: 140px 100px;
 				color: #000
+			}
+
+			.card-deck {
+				margin: auto;
 			}
 		`
 		return (
@@ -48,12 +39,28 @@ class Home extends React.Component {
 				<div className="showcase">
 				</div>
 				<div className='link-to-how-it-works'>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+
+					<Layout className='card-deck'>
+						<CardDeck>
+					    	{ this.props.stockPanels }
+						</CardDeck>
+					</Layout>
 				</div>
-				<Layout>
-					<CardDeck>
-				    	{ this.props.stockPanels }
-					</CardDeck>
-				</Layout>
+				
 			</Styles>
 		)
 	}
