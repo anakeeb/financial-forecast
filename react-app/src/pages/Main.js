@@ -29,7 +29,8 @@ class Main extends React.Component {
 			finishedTraining: false,
 			epochIteration: 0,
 			epochs: 100,
-			timePortion: 7
+			timePortion: 7,
+			customizationStep: 0
 		}
 		this.arrOfClosePrice = this.arrOfClosePrice.bind(this)
 		this.testModel = this.testModel.bind(this)
@@ -38,6 +39,8 @@ class Main extends React.Component {
 		this.handleEpochMinusClick = this.handleEpochMinusClick.bind(this)
 		this.handleTimePlusClick = this.handleTimePlusClick.bind(this)
 		this.handleTimeMinusClick = this.handleTimeMinusClick.bind(this)
+		this.handleNextCustom = this.handleNextCustom.bind(this)
+		this.handlePrevCustom = this.handlePrevCustom.bind(this)
 	}
 
 	arrOfClosePrice() {
@@ -79,7 +82,8 @@ class Main extends React.Component {
 					predicted: result,
 					finishedTraining: true,
 					epochIteration: prevState.epochIteration,
-					epochs: prevState.epochs
+					epochs: prevState.epochs,
+					customizationStep: prevState.customizationStep
 				}
 			})
 		})
@@ -93,7 +97,8 @@ class Main extends React.Component {
 				finishedTraining: prevState.finishedTraining,
 				epochIteration: prevState.epochIteration,
 				epochs: prevState.epochs + 1,
-				timePortion: prevState.timePortion
+				timePortion: prevState.timePortion,
+				customizationStep: prevState.customizationStep
 			}
 		})
 	}
@@ -109,7 +114,8 @@ class Main extends React.Component {
 				finishedTraining: prevState.finishedTraining,
 				epochIteration: prevState.epochIteration,
 				epochs: epoch,
-				timePortion: prevState.timePortion
+				timePortion: prevState.timePortion,
+				customizationStep: prevState.customizationStep
 			}
 		})
 	}
@@ -121,7 +127,8 @@ class Main extends React.Component {
 				finishedTraining: prevState.finishedTraining,
 				epochIteration: prevState.epochIteration,
 				epochs: prevState.epochs,
-				timePortion: prevState.timePortion + 1
+				timePortion: prevState.timePortion + 1,
+				customizationStep: prevState.customizationStep
 			}
 		})
 	}
@@ -137,7 +144,34 @@ class Main extends React.Component {
 				finishedTraining: prevState.finishedTraining,
 				epochIteration: prevState.epochIteration,
 				epochs: prevState.epochs,
-				timePortion: time
+				timePortion: time,
+				customizationStep: prevState.customizationStep
+			}
+		})
+	}
+
+	handleNextCustom() {
+		this.setState(prevState => {
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: prevState.finishedTraining,
+				epochIteration: prevState.epochIteration,
+				epochs: prevState.epochs,
+				timePortion: prevState.timePortion,
+				customizationStep: prevState.customizationStep + 1
+			}
+		})
+	}
+
+	handlePrevCustom() {
+		this.setState(prevState => {
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: prevState.finishedTraining,
+				epochIteration: prevState.epochIteration,
+				epochs: prevState.epochs,
+				timePortion: prevState.timePortion,
+				customizationStep: prevState.customizationStep - 1
 			}
 		})
 	}
@@ -154,7 +188,8 @@ class Main extends React.Component {
 				finishedTraining: false,
 				epochIteration: 0,
 				epochs: epochs,
-				timePortion: timePortion
+				timePortion: timePortion,
+				customizationStep: prevState.customizationStep
 			}
 		})
 		let thisVar = this
@@ -320,7 +355,8 @@ class Main extends React.Component {
 				    			predicted: prevState.predicted,
 				    			finishedTraining: prevState.finishedTraining,
 				    			epochIteration: prevState.epochIteration + 1,
-				    			epochs: prevState.epochs
+				    			epochs: prevState.epochs,
+				    			customizationStep: prevState.customizationStep
 				    		}
 				    	})
 				    }
@@ -464,6 +500,17 @@ class Main extends React.Component {
 		let startButton
 		let epochButton
 		let timeButton
+		let companyButton = (
+			<div>
+				<DropdownButton id="dropdown-basic-button" title={ btnName }>
+				    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
+				    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
+				    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
+				</DropdownButton>
+				<button onClick={ this.handleNextCustom }>next</button>
+			</div>	
+		)
+		
 		if (btnName !== 'Stock') {
 			startButton = (
 				<Styles>
@@ -473,25 +520,35 @@ class Main extends React.Component {
 				</Styles>
 			)
 
-			epochButton = (
-				<Styles>
-					<Col className='epoch-text'>
-						<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
-						{ this.state.epochs } Epochs
-						<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>	
-					</Col>
-				</Styles>
-			)
+			if (this.state.customizationStep !== 0) {
+				companyButton = null
+			}
+			
+			if (this.state.customizationStep === 1) {
+				epochButton = (
+					<Styles>
+							<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
+							{ this.state.epochs } Epochs
+							<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>
+							<button onClick={ this.handleNextCustom }>next</button>
+							<button onClick={ this.handlePrevCustom }>prev</button>
 
-			timeButton = (
-				<Styles>
-					<Col className='epoch-text'>
-						<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
-						{ this.state.timePortion } Weeks back
-						<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>	
-					</Col>
-				</Styles>
-			)
+					</Styles>
+				)
+			}
+			
+			if (this.state.customizationStep === 2) {
+				timeButton = (
+					<Styles>
+							<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
+							{ this.state.timePortion } Weeks back
+							<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>
+							<button onClick={ this.handleNextCustom }>next</button>
+							<button onClick={ this.handlePrevCustom }>prev</button>
+					</Styles>
+				)
+			}
+			
 		}
 
 
@@ -613,27 +670,36 @@ class Main extends React.Component {
 
 		return (
 			<Styles>
-				<Container fluid>
-					<Row className='navbar-secondary'>
-						<Col>
-							<DropdownButton id="dropdown-basic-button" title={ btnName }>
-							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
-							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
-							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
-							</DropdownButton>
-						</Col>
-						{ timeButton }
-						{ epochButton}
-						{ startButton }
-					</Row>
-				</Container>
-				<Layout>
-					
-					<ProgressBar now={ percentComplete }/>
-					{ graph }
-				</Layout>
+				{companyButton}
+				{epochButton}
+				{timeButton}
 			</Styles>
 		)
+
+		//
+		// return (
+		// 	<Styles>
+		// 		<Container fluid>
+		// 			<Row className='navbar-secondary'>
+		// 				<Col>
+		// 					<DropdownButton id="dropdown-basic-button" title={ btnName }>
+		// 					    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
+		// 					    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
+		// 					    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
+		// 					</DropdownButton>
+		// 				</Col>
+		// 				{ timeButton }
+		// 				{ epochButton}
+		// 				{ startButton }
+		// 			</Row>
+		// 		</Container>
+		// 		<Layout>
+					
+		// 			<ProgressBar now={ percentComplete }/>
+		// 			{ graph }
+		// 		</Layout>
+		// 	</Styles>
+		// )
 	}
 }
 
