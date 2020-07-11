@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom'
 import Rain from '../img/Rain.gif'
 import LinkToHowItWorks from '../img/linkToHowItWorks.png'
+import QuickLooks from '../img/quickLooks.png'
 
 
 class Home extends React.Component {
@@ -87,7 +88,7 @@ class Home extends React.Component {
 				color: $color-black;
 				box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
 				border: solid 3px transparent;
-				background-image: linear-gradient(#333, rgba(255, 255, 255, 0)), linear-gradient(101deg, #88d498, #ffffff);
+				background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, #88d498, #ffffff);
 				background-origin: border-box;
 				background-clip: content-box, border-box;
 				box-shadow: 2px 1000px 1px #fff inset;
@@ -96,6 +97,16 @@ class Home extends React.Component {
 				&:hover {
 					box-shadow: none;
 				}
+			}
+
+			.quick-looks{
+				background: url(${ QuickLooks }) no-repeat center fixed;
+				background-position: center;
+				background-size: cover;
+				background-attachment: scroll;
+				height: 700px;
+				padding: 140px 100px;
+				color: #000
 			}
 
 			.card-deck {
@@ -138,6 +149,10 @@ class Home extends React.Component {
 					<br/>
 					<br/>
 
+
+
+				</div>
+				<div className="quick-looks">
 					<Layout className='card-deck'>
 						<CardDeck>
 					    	{ this.props.stockPanels }

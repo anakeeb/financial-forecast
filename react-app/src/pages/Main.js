@@ -16,7 +16,8 @@ import calendarIcon from '../img/calendarIcon.png'
 import companyIcon from '../img/companyIcon.png'
 import epochIcon from '../img/epochIcon.png'
 import resultsIcon from '../img/resultsIcon.png'
-import loadingSpinner from '../img/loadingSpinner.gif'
+import loadingSpinner from '../img/loadingSpin.gif'
+import mainBackground from '../img/mainBackground.png'
 
 
 
@@ -499,6 +500,16 @@ class Main extends React.Component {
 				backgorund-color: #88D498;
 			}
 
+			.main{
+				background: url(${ mainBackground }) no-repeat center fixed;
+				background-position: center;
+				background-size: cover;
+				background-attachment: scroll;
+				height: 600px;
+				padding: 140px 100px;
+				color: #000
+			}
+
 			
 		`
 
@@ -746,10 +757,13 @@ class Main extends React.Component {
 		
 		return (
 			<Styles>
-				{ companyScreen }
-				{ epochScreen }
-				{ timeScreen }
-				{ resultScreen }
+				<div className="main">
+					{ companyScreen }
+					{ epochScreen }
+					{ timeScreen }
+					{ resultScreen }
+				</div>
+
 			</Styles>
 		)
 
