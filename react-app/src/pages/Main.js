@@ -12,6 +12,12 @@ import Fade from 'react-bootstrap/Fade'
 import CanvasJSReact from '../canvasjs.react'
 import { Layout } from '../components/Layout'
 import styled from 'styled-components'
+import calendarIcon from '../img/calendarIcon.png'
+import companyIcon from '../img/companyIcon.png'
+import epochIcon from '../img/epochIcon.png'
+import resultsIcon from '../img/resultsIcon.png'
+import loadingSpinner from '../img/loadingSpinner.gif'
+
 
 
 
@@ -73,6 +79,15 @@ class Main extends React.Component {
 
 		let prices = this.arrOfClosePrice()
 		let thisVar = this
+		this.setState(prevState => {
+			return {
+				predicted: prevState.predicted,
+				finishedTraining: true,
+				epochIteration: prevState.epochIteration,
+				epochs: prevState.epochs,
+				customizationStep: prevState.customizationStep + 1
+			}
+		})
 
 		this.testModel(prices).then(function (result) {
 			console.log(result)
@@ -471,12 +486,20 @@ class Main extends React.Component {
 			}
 
 			.dropdown-button {
-				background-color = #000
+				background-color: #000;
 			}
 
-			.navbar-secondary {
-				background-color: #222;
+			.icon {
+				height: 80px;
+				background-color: #FFF;
 			}
+
+			.content {
+				height: 320px;
+				backgorund-color: #88D498;
+			}
+
+			
 		`
 
 		let btnName = ''
@@ -495,60 +518,6 @@ class Main extends React.Component {
 		}
 		else {
 			btnName = 'Stock'
-		}
-
-		let startButton
-		let epochButton
-		let timeButton
-		let companyButton = (
-			<div>
-				<DropdownButton id="dropdown-basic-button" title={ btnName }>
-				    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
-				    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
-				    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
-				</DropdownButton>
-				<button onClick={ this.handleNextCustom }>next</button>
-			</div>	
-		)
-		
-		if (btnName !== 'Stock') {
-			startButton = (
-				<Styles>
-					<Col>
-						<Button className='startButton' onClick={ this.handleStartClick }>start</Button>
-					</Col>
-				</Styles>
-			)
-
-			if (this.state.customizationStep !== 0) {
-				companyButton = null
-			}
-			
-			if (this.state.customizationStep === 1) {
-				epochButton = (
-					<Styles>
-							<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
-							{ this.state.epochs } Epochs
-							<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>
-							<button onClick={ this.handleNextCustom }>next</button>
-							<button onClick={ this.handlePrevCustom }>prev</button>
-
-					</Styles>
-				)
-			}
-			
-			if (this.state.customizationStep === 2) {
-				timeButton = (
-					<Styles>
-							<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
-							{ this.state.timePortion } Weeks back
-							<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>
-							<button onClick={ this.handleNextCustom }>next</button>
-							<button onClick={ this.handlePrevCustom }>prev</button>
-					</Styles>
-				)
-			}
-			
 		}
 
 
@@ -663,43 +632,128 @@ class Main extends React.Component {
 				</Fade>
 			)		
 		}
+
+		let percentComplete = ((this.state.epochIteration / this.state.epochs) * 100)
+		percentComplete = Math.floor(percentComplete)
+
+
+		let epochScreen
+		let timeScreen
+		let resultScreen
+		let companyScreen = (
+			<Styles>
+				<Container>
+					<Row className="icon">
+						<Col>
+							<img src={ companyIcon }/>
+							<hr/>
+						</Col>
+					</Row>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+
+					<Row className="content">
+						<Col>
+							<DropdownButton id="dropdown-basic-button" title={ btnName }>
+							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
+							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
+							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
+							</DropdownButton>
+						</Col>
+						<Col>
+							<button onClick={ this.handleNextCustom }>next</button>
+						</Col>
+					</Row>
+					
+					
+				</Container>
+
+				
+			</Styles>	
+		)
+		
+		if (btnName !== 'Stock') {
+
+			if (this.state.customizationStep !== 0) {
+				companyScreen = null
+			}
+			
+			if (this.state.customizationStep === 1) {
+				epochScreen = (
+					<Styles>
+							<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
+							{ this.state.epochs } Epochs
+							<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>
+							<button onClick={ this.handleNextCustom }>next</button>
+							<button onClick={ this.handlePrevCustom }>prev</button>
+							<img src={ epochIcon }/>
+					</Styles>
+				)
+			}
+			
+			if (this.state.customizationStep === 2) {
+				timeScreen = (
+					<Styles>
+							<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
+							{ this.state.timePortion } Weeks back
+							<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>
+							<button onClick={ this.handleStartClick }>start</button>
+							<button onClick={ this.handlePrevCustom }>prev</button>
+							<img src={ calendarIcon }/>
+					</Styles>
+				)
+			}
+
+			if (this.state.customizationStep === 3) {
+				let loading = (
+					<div>
+						<img src={ loadingSpinner }/>
+						<h1>{ percentComplete }% complete</h1>
+					</div>
+					
+				)
+				resultScreen = (
+					<Styles>
+							
+							<img src={ resultsIcon }/>
+							{this.state.finishedTraining ? graph : loading}
+					</Styles>
+				)
+
+			}
+
+			
+		}
+
+
+		
 		
 
 
-		let percentComplete = ((this.state.epochIteration / this.state.epochs) * 100)
-
+		
 		return (
 			<Styles>
-				{companyButton}
-				{epochButton}
-				{timeButton}
+				{ companyScreen }
+				{ epochScreen }
+				{ timeScreen }
+				{ resultScreen }
 			</Styles>
 		)
 
-		//
-		// return (
-		// 	<Styles>
-		// 		<Container fluid>
-		// 			<Row className='navbar-secondary'>
-		// 				<Col>
-		// 					<DropdownButton id="dropdown-basic-button" title={ btnName }>
-		// 					    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
-		// 					    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
-		// 					    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
-		// 					</DropdownButton>
-		// 				</Col>
-		// 				{ timeButton }
-		// 				{ epochButton}
-		// 				{ startButton }
-		// 			</Row>
-		// 		</Container>
-		// 		<Layout>
-					
-		// 			<ProgressBar now={ percentComplete }/>
-		// 			{ graph }
-		// 		</Layout>
-		// 	</Styles>
-		// )
+		
 	}
 }
 
