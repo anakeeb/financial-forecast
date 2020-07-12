@@ -492,7 +492,7 @@ class Main extends React.Component {
 
 			.icon {
 				height: 80px;
-				background-color: #FFF;
+				margin: auto;
 			}
 
 			.content {
@@ -505,7 +505,7 @@ class Main extends React.Component {
 				background-position: center;
 				background-size: cover;
 				background-attachment: scroll;
-				height: 600px;
+				height: 1000px;
 				padding: 140px 100px;
 				color: #000
 			}
@@ -561,31 +561,31 @@ class Main extends React.Component {
 						type: 'line',
 						dataPoints: [
 							{
-								x: new Date(Date.now() - 49 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
 								y: closes[7]
 							},
 							{
-								x: new Date(Date.now() - 42 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
 								y: closes[6]
 							},
 							{
-								x: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
 								y: closes[5]
 							},
 							{
-								x: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
 								y: closes[4]
 							},
 							{
-								x: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
 								y: closes[3]
 							},
 							{
-								x: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
 								y: closes[2]
 							},
 							{
-								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
 								y: closes[1]
 							},
 							{
@@ -598,31 +598,31 @@ class Main extends React.Component {
 						type: 'line',
 						dataPoints: [
 							{
-								x: new Date(Date.now() - 49 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[8]
 							},
 							{
-								x: new Date(Date.now() - 42 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[7]
 							},
 							{
-								x: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[6]
 							},
 							{
-								x: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[5]
 							},
 							{
-								x: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[4]
 							},
 							{
-								x: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[3]
 							},
 							{
-								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[2]
 							},
 							{
@@ -630,7 +630,7 @@ class Main extends React.Component {
 								y: this.state.predicted[1]
 							},
 							{
-								x: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
 								y: this.state.predicted[0]
 							}
 						]
@@ -654,10 +654,9 @@ class Main extends React.Component {
 		let companyScreen = (
 			<Styles>
 				<Container>
-					<Row className="icon">
+					<Row>
 						<Col>
-							<img src={ companyIcon }/>
-							<hr/>
+							<img className="icon" src={ companyIcon }/>
 						</Col>
 					</Row>
 					<br/>
@@ -710,7 +709,7 @@ class Main extends React.Component {
 							<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>
 							<button onClick={ this.handleNextCustom }>next</button>
 							<button onClick={ this.handlePrevCustom }>prev</button>
-							<img src={ epochIcon }/>
+							<img className="icon" src={ epochIcon }/>
 					</Styles>
 				)
 			}
@@ -723,7 +722,7 @@ class Main extends React.Component {
 							<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>
 							<button onClick={ this.handleStartClick }>start</button>
 							<button onClick={ this.handlePrevCustom }>prev</button>
-							<img src={ calendarIcon }/>
+							<img className="icon" src={ calendarIcon }/>
 					</Styles>
 				)
 			}
@@ -731,7 +730,7 @@ class Main extends React.Component {
 			if (this.state.customizationStep === 3) {
 				let loading = (
 					<div>
-						<img src={ loadingSpinner }/>
+						<img className="icon" src={ loadingSpinner }/>
 						<h1>{ percentComplete }% complete</h1>
 					</div>
 					
@@ -739,7 +738,7 @@ class Main extends React.Component {
 				resultScreen = (
 					<Styles>
 							
-							<img src={ resultsIcon }/>
+							<img className="icon" src={ resultsIcon }/>
 							{this.state.finishedTraining ? graph : loading}
 					</Styles>
 				)

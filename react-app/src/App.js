@@ -85,12 +85,12 @@ class App extends React.Component {
 	componentDidMount() {
         //Making API calls
         if(!this.state.panels[0].timeSeries) {
-        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[0].name }&apikey=PUITOEHB47EXYOC4`)
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ this.state.panels[0].name }&apikey=PUITOEHB47EXYOC4`)
 	            .then(response => response.json())
 	            .then(data => this.setState(prevState => {
 	            	const updatedPanels = prevState.panels.map(panel => {
 	            		if (panel.id === 0) {
-	            			panel.timeSeries = data['Weekly Time Series']
+	            			panel.timeSeries = data['Time Series (Daily)']
 	            		}
 	            		return panel
 	            	})
@@ -101,12 +101,12 @@ class App extends React.Component {
         	)
         }
         if(!this.state.panels[1].timeSeries) {
-        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[1].name }&apikey=PUITOEHB47EXYOC4`)
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ this.state.panels[1].name }&apikey=PUITOEHB47EXYOC4`)
 	            .then(response => response.json())
 	            .then(data => this.setState(prevState => {
 	            	const updatedPanels = prevState.panels.map(panel => {
 	            		if (panel.id === 1) {
-	            			panel.timeSeries = data['Weekly Time Series']
+	            			panel.timeSeries = data['Time Series (Daily)']
 	            		}
 	            		return panel
 	            	})
@@ -117,12 +117,12 @@ class App extends React.Component {
         	)
         }
         if(!this.state.panels[2].timeSeries) {
-        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${ this.state.panels[2].name }&apikey=PUITOEHB47EXYOC4`)
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ this.state.panels[2].name }&apikey=PUITOEHB47EXYOC4`)
 	            .then(response => response.json())
 	            .then(data => this.setState(prevState => {
 	            	const updatedPanels = prevState.panels.map(panel => {
 	            		if (panel.id === 2) {
-	            			panel.timeSeries = data['Weekly Time Series']
+	            			panel.timeSeries = data['Time Series (Daily)']
 	            		}
 	            		return panel
 	            	})

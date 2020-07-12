@@ -84,39 +84,39 @@ class StockPanel extends React.Component {
 						dataPoints: [
 
 							{
-								x: new Date(Date.now() - 63 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000),
 								y: [highest[9], lowest[9]]
 							},
 							{
-								x: new Date(Date.now() - 56 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000),
 								y: [highest[8], lowest[8]]
 							},
 							{
-								x: new Date(Date.now() - 49 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
 								y: [highest[7], lowest[7]]
 							},
 							{
-								x: new Date(Date.now() - 42 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000),
 								y: [highest[6], lowest[6]]
 							},
 							{
-								x: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
 								y: [highest[5], lowest[5]]
 							},
 							{
-								x: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
 								y: [highest[4], lowest[4]]
 							},
 							{
-								x: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
 								y: [highest[3], lowest[3]]
 							},
 							{
-								x: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
 								y: [highest[2], lowest[2]]
 							},
 							{
-								x: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+								x: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
 								y: [highest[1], lowest[1]]
 							},
 							{

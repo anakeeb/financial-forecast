@@ -84,18 +84,21 @@ class Home extends React.Component {
 				padding: 1rem;
 				font-family: 'Avenir Next';
 				font-size: 60px;
-				padding: 30px 60px;
-				color: $color-black;
-				box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+				padding: 30px 60px;				
 				border: solid 3px transparent;
-				background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, #88d498, #ffffff);
-				background-origin: border-box;
-				background-clip: content-box, border-box;
-				box-shadow: 2px 1000px 1px #fff inset;
 				float: right;
+				border-color: #88d498;
+				background: transparent;
+				color: #88d498;
+				border-radius: 4px;
+				
+			
 				
 				&:hover {
-					box-shadow: none;
+					color: linear-gradient(#222222, #000);
+					background: #88d498;
+					border-color: transparent;
+
 				}
 			}
 
@@ -127,7 +130,7 @@ class Home extends React.Component {
 					<br/>
 					<br/>
 					<Link to='/about'>
-						<button className='link-button'>click me</button>
+						<button className='link-button'>CLICK HERE</button>
 					</Link>
 					
 					<br/>
