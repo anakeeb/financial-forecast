@@ -37,6 +37,13 @@ class App extends React.Component {
 					hovered: false,
 					selected: false,
 					timeSeries: null
+				},
+				{
+					id: 3,
+					name: 'TSLA',
+					hovered: false,
+					selected: false,
+					timeSeries: null
 				}
 			]
 
@@ -122,6 +129,22 @@ class App extends React.Component {
 	            .then(data => this.setState(prevState => {
 	            	const updatedPanels = prevState.panels.map(panel => {
 	            		if (panel.id === 2) {
+	            			panel.timeSeries = data['Time Series (Daily)']
+	            		}
+	            		return panel
+	            	})
+	            	return {
+	            		timeSeries: updatedPanels
+	            	}
+	            })
+        	)
+        }
+        if(!this.state.panels[3].timeSeries) {
+        	fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${ this.state.panels[3].name }&apikey=PUITOEHB47EXYOC4`)
+	            .then(response => response.json())
+	            .then(data => this.setState(prevState => {
+	            	const updatedPanels = prevState.panels.map(panel => {
+	            		if (panel.id === 3) {
 	            			panel.timeSeries = data['Time Series (Daily)']
 	            		}
 	            		return panel

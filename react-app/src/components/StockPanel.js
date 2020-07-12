@@ -166,7 +166,7 @@ class StockPanel extends React.Component {
 		return(
 
 			<Styles>
-				<Card className='stock-card' onMouseEnter={ () => this.props.onHover(this.props.panel.id) } onMouseLeave={ () => this.props.onHover(this.props.panel.id) }>
+				<Card style={{ width: '18rem', height: '18rem' }} border="dark" onMouseEnter={ () => this.props.onHover(this.props.panel.id) } onMouseLeave={ () => this.props.onHover(this.props.panel.id) }>
 			        <Card.Body>
 			    	    {this.props.panel.hovered ? graph : text }
 			        </Card.Body>

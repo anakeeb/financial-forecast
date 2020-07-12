@@ -18,6 +18,11 @@ import epochIcon from '../img/epochIcon.png'
 import resultsIcon from '../img/resultsIcon.png'
 import loadingSpinner from '../img/loadingSpin.gif'
 import mainBackground from '../img/mainBackground.png'
+import customBar0 from '../img/customBar0.png'
+import customBar1 from '../img/customBar1.png'
+import customBar2 from '../img/customBar2.png'
+import customBar3 from '../img/customBar3.png'
+import customBar4 from '../img/customBar4.png'
 
 
 
@@ -500,7 +505,7 @@ class Main extends React.Component {
 				backgorund-color: #88D498;
 			}
 
-			.main{
+			.main {
 				background: url(${ mainBackground }) no-repeat center fixed;
 				background-position: center;
 				background-size: cover;
@@ -508,6 +513,24 @@ class Main extends React.Component {
 				height: 1000px;
 				padding: 140px 100px;
 				color: #000
+			}
+
+			.change-button {
+				border-radius: 24px;
+				border: solid 3px;
+				font-family: 'Avenir Next';
+				font-size: 60px;
+				border-color: #000;
+				padding: 20px 20px;
+				color: #000;
+				background: transparent;
+
+
+				&:hover {
+					border-color: #000;
+					background: #000;
+					color: #88d498;
+				}
 			}
 
 			
@@ -526,6 +549,10 @@ class Main extends React.Component {
 		else if (this.props.panels[2].selected === true) {
 			btnName = this.props.panels[2].name
 			selectedId = 2
+		}
+		else if (this.props.panels[3].selected === true) {
+			btnName = this.props.panels[3].name
+			selectedId = 3
 		}
 		else {
 			btnName = 'Stock'
@@ -647,55 +674,54 @@ class Main extends React.Component {
 		let percentComplete = ((this.state.epochIteration / this.state.epochs) * 100)
 		percentComplete = Math.floor(percentComplete)
 
+		let customBar = (
+					<img src={ customBar0 }/>
+		)
+
 
 		let epochScreen
 		let timeScreen
 		let resultScreen
+		let nextBtn
+		if (btnName !== 'Stock') {
+			nextBtn = (
+				<button className='change-button' onClick={ this.handleNextCustom }>></button>
+			)
+		}
 		let companyScreen = (
 			<Styles>
-				<Container>
-					<Row>
-						<Col>
-							<img className="icon" src={ companyIcon }/>
-						</Col>
-					</Row>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
-					<br/>
+				<Row>
+					<Col>
+					</Col>
+					<Col>
+						<img className="icon" src={ companyIcon }/>
+					</Col>
+					<Col>
+					</Col>
+				</Row>
+				
 
-					<Row className="content">
-						<Col>
-							<DropdownButton id="dropdown-basic-button" title={ btnName }>
-							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
-							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
-							    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
-							</DropdownButton>
-						</Col>
-						<Col>
-							<button onClick={ this.handleNextCustom }>next</button>
-						</Col>
-					</Row>
-					
-					
-				</Container>
-
+				<Row className="content">
+					<Col>
+						<DropdownButton id="dropdown-basic-button" title={ btnName }>
+						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
+						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
+						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
+						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[3].id) }> { this.props.panels[3].name } </Dropdown.Item>
+						</DropdownButton>
+					</Col>
+					<Col>
+						{ nextBtn }
+					</Col>
+				</Row>
 				
 			</Styles>	
 		)
 		
 		if (btnName !== 'Stock') {
+			customBar = (
+					<img src={ customBar1 }/>
+			)
 
 			if (this.state.customizationStep !== 0) {
 				companyScreen = null
@@ -704,44 +730,104 @@ class Main extends React.Component {
 			if (this.state.customizationStep === 1) {
 				epochScreen = (
 					<Styles>
+						<Row>
+							<Col>
+							</Col>
+							<Col>
+								<img className="icon" src={ epochIcon }/>
+							</Col>
+							<Col>
+							</Col>
+						</Row>
+						<Row>
 							<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
 							{ this.state.epochs } Epochs
 							<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>
-							<button onClick={ this.handleNextCustom }>next</button>
-							<button onClick={ this.handlePrevCustom }>prev</button>
-							<img className="icon" src={ epochIcon }/>
+						</Row>
+						<Row>
+							<button className='change-button' onClick={ this.handlePrevCustom }> {` < `} </button>
+							<button className='change-button' onClick={ this.handleNextCustom }> > </button>
+						</Row>
+							
 					</Styles>
+				)
+				customBar = (
+					<img src={ customBar2 }/>
 				)
 			}
 			
 			if (this.state.customizationStep === 2) {
 				timeScreen = (
 					<Styles>
+						<Row>
+							<Col>
+							</Col>
+							<Col>
+								<img className="icon" src={ calendarIcon }/>
+							</Col>
+							<Col>
+							</Col>
+						</Row>
+						<Row>
 							<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
 							{ this.state.timePortion } Weeks back
 							<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>
-							<button onClick={ this.handleStartClick }>start</button>
-							<button onClick={ this.handlePrevCustom }>prev</button>
-							<img className="icon" src={ calendarIcon }/>
+						</Row>
+						<Row>
+							
+							<button className='change-button' onClick={ this.handlePrevCustom }> {` < `} </button>
+							<button className='change-button' onClick={ this.handleStartClick }>start</button>
+						</Row>
 					</Styles>
+				)
+				customBar = (
+					<img src={ customBar3 }/>
 				)
 			}
 
 			if (this.state.customizationStep === 3) {
 				let loading = (
 					<div>
-						<img className="icon" src={ loadingSpinner }/>
-						<h1>{ percentComplete }% complete</h1>
+						<Row>
+							<Col>
+							</Col>
+							<Col>
+								<img className="icon" src={ loadingSpinner }/>
+							</Col>
+							<Col>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+							</Col>
+							<Col>
+								<h1>{ percentComplete }% complete</h1>
+							</Col>
+							<Col>
+							</Col>
+						</Row>
 					</div>
 					
 				)
 				resultScreen = (
 					<Styles>
-							
-							<img className="icon" src={ resultsIcon }/>
-							{this.state.finishedTraining ? graph : loading}
+						<Row>
+							<Col>
+							</Col>
+							<Col>
+								<img className="icon" src={ resultsIcon }/>
+							</Col>
+							<Col>
+							</Col>
+						</Row>
+						{this.state.finishedTraining ? graph : loading}
+						
 					</Styles>
 				)
+				customBar = (
+					<img src={ customBar4 }/>
+				)
+
 
 			}
 
@@ -757,10 +843,21 @@ class Main extends React.Component {
 		return (
 			<Styles>
 				<div className="main">
-					{ companyScreen }
-					{ epochScreen }
-					{ timeScreen }
-					{ resultScreen }
+					<Container>
+						{ companyScreen }
+						{ epochScreen }
+						{ timeScreen }
+						{ resultScreen }
+						<Row>
+							<Col>
+							</Col>
+							<Col>
+								{ customBar }
+							</Col>
+							<Col>
+							</Col>
+						</Row>
+					</Container>
 				</div>
 
 			</Styles>

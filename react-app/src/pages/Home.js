@@ -62,23 +62,6 @@ class Home extends React.Component {
 			}
 
 
-			.link-button-bad {
-				background-color: transparent;
-				border-radius: 15px;
-				border: 4px transparent;
-				cursor: poiner;
-				color: #000;
-				padding: 25px 40px;
-				background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, #88d498, #ffffff);
-				    background-origin: border-box;
-				    background-clip: content-box, border-box;
-				    box-shadow: transparent;
-				&:hover {
-					box-shadow: none;
-				}
-
-			}
-
 			.link-button {
 				border-radius: 4px;
 				padding: 1rem;
@@ -95,7 +78,7 @@ class Home extends React.Component {
 			
 				
 				&:hover {
-					color: linear-gradient(#222222, #000);
+					color: #222;
 					background: #88d498;
 					border-color: transparent;
 
@@ -156,7 +139,11 @@ class Home extends React.Component {
 
 				</div>
 				<div className="quick-looks">
-					<Layout className='card-deck'>
+					<br/>
+					<br/>
+					<br/>
+					<br/>
+					<Layout>
 						<CardDeck>
 					    	{ this.props.stockPanels }
 						</CardDeck>
