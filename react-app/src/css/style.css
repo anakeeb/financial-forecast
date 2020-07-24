@@ -1,10 +1,11 @@
-.branding{
+/*.branding{
 	font-size: 17px;	
 }
 
 .showcase{
 	background: url(../img/Rain.gif);
 	background-position: center;
+	background-size: cover;
 	height: 600px;
 	padding: 140px 100px;
 	color: #000
@@ -24,8 +25,9 @@
 }
 
 .about{
-	background: url(../img/AboutUs.gif);
+	background: url(../img/Rain.gif);
 	background-position: center;
+	background-size: cover;
 	height: 600px;
 	padding: 140px 100px;
 	color: #000
@@ -42,4 +44,4 @@
 	margin: auto;
 	border-width: 3px;
 	border-color: #88d498;
-}
+}*/
