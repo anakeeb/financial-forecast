@@ -1,16 +1,11 @@
 import React from 'react'
-import Dropdown from 'react-bootstrap/Dropdown'
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import ProgressBar from 'react-bootstrap/ProgressBar'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
 import * as tf from '@tensorflow/tfjs'
-import * as tfvis from '@tensorflow/tfjs-vis'
 import Fade from 'react-bootstrap/Fade'
 import CanvasJSReact from '../canvasjs.react'
-import { Layout } from '../components/Layout'
 import styled from 'styled-components'
 import calendarIcon from '../img/calendarIcon.png'
 import companyIcon from '../img/companyIcon.png'
@@ -500,6 +495,17 @@ class Main extends React.Component {
 				margin: auto;
 			}
 
+			.icon-large {
+				height: 300px;
+				margin: auto;
+			}
+
+			.param-text {
+				font-size: 40px;
+				font-family: "Roboto";
+				font-weight: 700px;
+			}
+
 			.content {
 				height: 320px;
 				backgorund-color: #88D498;
@@ -510,7 +516,7 @@ class Main extends React.Component {
 				background-position: center;
 				background-size: cover;
 				background-attachment: scroll;
-				height: 1000px;
+				height: 1400px;
 				padding: 140px 100px;
 				color: #000
 			}
@@ -531,6 +537,50 @@ class Main extends React.Component {
 					background: #000;
 					color: #88d498;
 				}
+			}
+
+			.change-button-small {
+				border-radius: 12px;
+				border: solid 1.5px;
+				font-family: 'Avenir Next';
+				font-size: 30px;
+				border-color: #000;
+				padding: 10px 10px;
+				color: #000;
+				background: transparent;
+
+
+				&:hover {
+					border-color: #000;
+					background: #000;
+					color: #88d498;
+				}
+			}
+
+			.change-button-small-selected {
+				border-radius: 12px;
+				border: solid 1.5px;
+				font-family: 'Avenir Next';
+				font-size: 30px;
+				border-color: #000;
+				padding: 10px 10px;
+				color: #FFF;
+				background: transparent;
+
+
+				&:hover {
+					border-color: #000;
+					background: #000;
+					color: #88d498;
+				}
+			}
+
+			.row-center {
+				place-items: center;
+			}
+
+			col-center {
+				place-items: center;
 			}
 
 			
@@ -567,7 +617,7 @@ class Main extends React.Component {
 			CanvasJS.addColorSet("greenShades",
                 [
 	                "#88D498",
-	                "9ED488",
+	                "000000",
 	                "#2E8B57",
 	                "#3CB371",
 	                "#90EE90"            
@@ -683,6 +733,7 @@ class Main extends React.Component {
 		let timeScreen
 		let resultScreen
 		let nextBtn
+		let explanation = `Choose what company's stock you would like to analyze`
 		if (btnName !== 'Stock') {
 			nextBtn = (
 				<button className='change-button' onClick={ this.handleNextCustom }>></button>
@@ -699,28 +750,59 @@ class Main extends React.Component {
 					<Col>
 					</Col>
 				</Row>
-				
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
 
 				<Row className="content">
 					<Col>
-						<DropdownButton id="dropdown-basic-button" title={ btnName }>
-						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </Dropdown.Item>
-						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </Dropdown.Item>
-						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </Dropdown.Item>
-						    <Dropdown.Item onSelect={ () => this.props.onSelect(this.props.panels[3].id) }> { this.props.panels[3].name } </Dropdown.Item>
-						</DropdownButton>
+					</Col>
+					<Col>
+					</Col>
+					<Col className='col-center'>
+						<Container>
+							<Row>
+								<button className='change-button-small' onClick={ () => this.props.onSelect(this.props.panels[0].id) }> { this.props.panels[0].name } </button>
+							</Row>
+							<br/>
+							<Row>
+								<button className='change-button-small' onClick={ () => this.props.onSelect(this.props.panels[1].id) }> { this.props.panels[1].name } </button>
+							</Row>
+							<br/>
+							<Row>
+								<button className='change-button-small' onClick={ () => this.props.onSelect(this.props.panels[2].id) }> { this.props.panels[2].name } </button>
+							</Row>
+							<br/>
+							<Row>
+								<button className='change-button-small' onClick={ () => this.props.onSelect(this.props.panels[3].id) }> { this.props.panels[3].name } </button>
+							</Row>
+						</Container>
+					</Col>
+					<Col>
 					</Col>
 					<Col>
 						{ nextBtn }
 					</Col>
 				</Row>
-				
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
 			</Styles>	
 		)
 		
 		if (btnName !== 'Stock') {
 			customBar = (
+				<div>
 					<img src={ customBar1 }/>
+				</div>
 			)
 
 			if (this.state.customizationStep !== 0) {
@@ -739,21 +821,42 @@ class Main extends React.Component {
 							<Col>
 							</Col>
 						</Row>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
 						<Row>
-							<Button className='startButton' onClick={ this.handleEpochMinusClick }>-</Button> 
-							{ this.state.epochs } Epochs
-							<Button className='startButton' onClick={ this.handleEpochPlusClick }>+</Button>
-						</Row>
-						<Row>
-							<button className='change-button' onClick={ this.handlePrevCustom }> {` < `} </button>
-							<button className='change-button' onClick={ this.handleNextCustom }> > </button>
-						</Row>
+							<Col>
+								<button className='change-button' onClick={ this.handlePrevCustom }> {` < `} </button>
+							</Col>
+							<Col>
+								<Button className='change-button' onClick={ this.handleEpochMinusClick }>-</Button>
+							</Col>
+							<Col className='col-center'>
+								<br/>
+								<br/>
+								<h1 className='param-text'>
+									{ this.state.epochs } Epochs
+								</h1>
+							</Col>
+							<Col>
+								<Button className='change-button' onClick={ this.handleEpochPlusClick }>+</Button>
+							</Col>
+							<Col>
+								<button className='change-button' onClick={ this.handleNextCustom }> > </button>
+							</Col>
 							
+						</Row>
 					</Styles>
 				)
 				customBar = (
 					<img src={ customBar2 }/>
 				)
+				explanation = `Epoch is a variable that decides how many times the computer will pass over the data.  A larger Epoch will take longer and usually be more accurate, however too large of a value will end up with a biased curve.`
 			}
 			
 			if (this.state.customizationStep === 2) {
@@ -768,21 +871,42 @@ class Main extends React.Component {
 							<Col>
 							</Col>
 						</Row>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
 						<Row>
-							<Button className='startButton' onClick={ this.handleTimeMinusClick }>-</Button> 
-							{ this.state.timePortion } Weeks back
-							<Button className='startButton' onClick={ this.handleTimePlusClick }>+</Button>
-						</Row>
-						<Row>
+							<Col>
+								<button className='change-button' onClick={ this.handlePrevCustom }> {` < `} </button>
+							</Col>
+							<Col>
+								<Button className='change-button' onClick={ this.handleTimeMinusClick }>-</Button>
+							</Col>
+							<Col className='col-center'>
+								<br/>
+								<br/>
+								<h1 className='param-text'>
+									{ this.state.timePortion } days back
+								</h1>
+							</Col>
+							<Col>
+								<Button className='change-button' onClick={ this.handleTimePlusClick }>+</Button>
+							</Col>
+							<Col>
+								<button className='change-button' onClick={ this.handleStartClick }>start</button>
+							</Col>
 							
-							<button className='change-button' onClick={ this.handlePrevCustom }> {` < `} </button>
-							<button className='change-button' onClick={ this.handleStartClick }>start</button>
 						</Row>
 					</Styles>
 				)
 				customBar = (
 					<img src={ customBar3 }/>
 				)
+				explanation = `The algorithm learns by making predictions based off of the past.  Choose how many days back you would like the computer to use when making it's prediction.`
 			}
 
 			if (this.state.customizationStep === 3) {
@@ -792,7 +916,7 @@ class Main extends React.Component {
 							<Col>
 							</Col>
 							<Col>
-								<img className="icon" src={ loadingSpinner }/>
+								<img className="icon-large" src={ loadingSpinner }/>
 							</Col>
 							<Col>
 							</Col>
@@ -820,6 +944,14 @@ class Main extends React.Component {
 							<Col>
 							</Col>
 						</Row>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
 						{this.state.finishedTraining ? graph : loading}
 						
 					</Styles>
@@ -827,6 +959,9 @@ class Main extends React.Component {
 				customBar = (
 					<img src={ customBar4 }/>
 				)
+				explanation = this.state.finishedTraining ? 
+					`The prediction is in!`
+						: `The computer is currently training itself to be able to make an accurate prediction based off of the variables that you chose.`
 
 
 			}
@@ -855,6 +990,11 @@ class Main extends React.Component {
 								{ customBar }
 							</Col>
 							<Col>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<h1>{ explanation }</h1>
 							</Col>
 						</Row>
 					</Container>
